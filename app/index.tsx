@@ -5,8 +5,10 @@ import Impressoras from "@/src/screens/Impressoras/impressora"
 import Roteadores from "@/src/screens/Roteadores/roteadores"
 import Servidores from "@/src/screens/Servidores/servidores"
 
+
 const App = () =>{
-    return <Servidores/>
+    
+    return <Home/>
 }
 
 export default App

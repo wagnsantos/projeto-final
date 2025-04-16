@@ -9,7 +9,7 @@ const styles = StyleSheet.create({
     direction:{
         justifyContent: 'space-around', 
         alignItems: 'center',
-        padding: 16,
+        padding: 6,
         },
     title: {
         fontSize: 16,

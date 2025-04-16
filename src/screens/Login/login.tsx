@@ -1,8 +1,10 @@
 import { Image, Text, TouchableOpacity, View } from "react-native";
 import MyTextInput from "@/src/components/TextInput/textInput";
 import styles from './styles'
+import { useRouter } from "expo-router";
 
 const Login = () =>{
+    const router = useRouter()
     return(
         <View style={styles.container}>
 
@@ -11,7 +13,7 @@ const Login = () =>{
             <MyTextInput placeholder="E-mail:"/>
             <MyTextInput placeholder="Senha:" secureTextEntry={true}/>
 
-            <TouchableOpacity style={styles.button}>
+            <TouchableOpacity style={styles.button} onPress={() => router.push ('./')}>
             <Text style={styles.title}>Entrar</Text>
             </TouchableOpacity>
             <TouchableOpacity style={styles.button}>
