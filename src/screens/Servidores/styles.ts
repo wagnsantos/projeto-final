@@ -22,6 +22,19 @@ const styles  = StyleSheet.create ({
             backgroundColor: '#243a69',
             borderRadius: 10,
             margin: 5
+    },
+    input:{
+        borderWidth: 1,
+        marginVertical: 10,
+        padding: 8,
+        color:'white',
+        fontWeight: 'bold',
+        borderColor: 'white',
+        width: 200
+    },
+    barra:{
+        padding: 5,
+        color: 'black'
     }
     
 })

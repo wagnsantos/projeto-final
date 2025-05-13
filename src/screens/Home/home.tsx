@@ -1,5 +1,5 @@
 import React from "react";
-import { Image, Text, TouchableOpacity, View } from "react-native";
+import { Button, Image, ScrollView, Text, TouchableOpacity, View } from "react-native";
 import styles from "./styles";
 import { useRouter } from "expo-router";
 
@@ -8,14 +8,17 @@ const Home = () => {
 
   return (
     <View style={styles.container}>
+      
       <Image style={styles.image} source={require('@/src/assets/logo1.png')} />
 
       <Text style={styles.title}>
         Sistema de Monitoramento de Equipamentos de TI
       </Text>
 
-      
+      <ScrollView showsVerticalScrollIndicator={true} style={styles.barra}>
+
       <View style={styles.direction}>
+        
         <TouchableOpacity style={styles.button} onPress={() => router.push("/pc")}>
           <Text style={styles.title}> PC </Text>
           <Image style={styles.image} source={require('@/src/assets/pc mode.png')} />
@@ -36,10 +39,11 @@ const Home = () => {
           <Image style={styles.image} source={require('@/src/assets/roteador.png')} />
         </TouchableOpacity>
         
-        <TouchableOpacity style={styles.button} onPress={() => router.push("./login")}>
-            <Text style={styles.title}>Sair</Text>
-        </TouchableOpacity>
+        <Button title="Sair" onPress={() => router.push("./login")}/>
+        
       </View>
+      </ScrollView>
+      
     </View>
   );
 };
