@@ -8,12 +8,12 @@ const Login = () =>{
     return(
         <View style={styles.container}>
 
-            <Image style={styles.image} source={require('@/src/assets/logo1.png')}/>
+            <Image style={styles.image} source={require('@/src/assets/monisystem_.png')}/>
             <Text style={styles.title}>Login</Text>
             <MyTextInput placeholder="E-mail:"/>
             <MyTextInput placeholder="Senha:" secureTextEntry={true}/>
 
-            <TouchableOpacity style={styles.button} onPress={() => router.push ('./')}>
+            <TouchableOpacity style={styles.button} onPress={() => router.push ('/home')}>
             <Text style={styles.title}>Entrar</Text>
             </TouchableOpacity>
             <TouchableOpacity style={styles.button}>

@@ -1,61 +1,65 @@
 import React, { useState, useEffect } from 'react';
-import { View, TextInput, Button, Text, TouchableOpacity, FlatList, ScrollView} from 'react-native';
+import { View, TextInput, Button, Text, TouchableOpacity, FlatList, ScrollView } from 'react-native';
 import { cadastrarEquipamento } from '@/src/service/CreateCustomerServices';
-import { listarEquipamentos } from '@/src/service/ListCustomerServices'; // Função para buscar equipamentos
+import { listarEquipamentos } from '@/src/service/ListCustomerServices';
+import { deletarEquipamento } from '@/src/service/DeleteCustomerService'; // NOVO: função para deletar
 import { router } from 'expo-router';
 import styles from './styles';
 
 const PC = () => {
-  const [nome, setNome] = useState(''); // Nome do equipamento
-  const [tipo, setTipo] = useState(''); // Tipo do equipamento
-  
-  const [mensagem, setMensagem] = useState(''); // Mensagem de sucesso ou erro
+  const [nome, setNome] = useState('');
+  const [tipo, setTipo] = useState('');
+  const [mensagem, setMensagem] = useState('');
+
   interface Equipamento {
     id: string;
     name: string;
     type: string;
   }
-  
-  const [equipamentos, setEquipamentos] = useState<Equipamento[]>([]);
-   // Lista de equipamentos filtrados
 
-  // Função chamada ao clicar no botão "Cadastrar"
+  const [equipamentos, setEquipamentos] = useState<Equipamento[]>([]);
+
   async function handleCadastro() {
-    if (!nome ) {  // Verifica se nome ou tipo estão vazios
+    if (!nome) {
       alert('Por favor, preencha todos os campos.');
-      return;  // Não faz o cadastro se algum campo estiver vazio
+      return;
     }
     try {
       await cadastrarEquipamento({ name: nome, type: 'pc' });
       alert('Equipamento cadastrado com sucesso!');
       setNome('');
       setTipo('');
-      
-      await buscarEquipamentos()
+      await buscarEquipamentos();
     } catch (error) {
       console.error(error);
       alert('Erro ao cadastrar.');
     }
   }
 
-  // Executa automaticamente ao abrir a tela ou quando a mensagem mudar (ex: após cadastrar)
   async function buscarEquipamentos() {
     try {
       const resposta = await listarEquipamentos();
-      console.log("Todos equipamentos:", resposta); // debug
-
       const filtrados = resposta.filter((item: any) => item.type?.toLowerCase() === 'pc');
       setEquipamentos(filtrados);
     } catch (error) {
       console.error('Erro ao buscar equipamentos:', error);
     }
   }
-  
+
+  async function handleDelete(id: string) {
+    try {
+      await deletarEquipamento(id);
+      alert('Equipamento excluído!');
+      await buscarEquipamentos();
+    } catch (error) {
+      console.error('Erro ao excluir:', error);
+      alert('Erro ao excluir equipamento.');
+    }
+  }
+
   useEffect(() => {
     buscarEquipamentos();
   }, []);
-
-   // Atualiza lista sempre que a mensagem mudar (ex: após cadastro)
 
   return (
     <View style={styles.container}>
@@ -68,10 +72,9 @@ const PC = () => {
         style={styles.input}
       />
 
-
       <Button title="Cadastrar" onPress={handleCadastro} />
 
-      <TouchableOpacity style={styles.button} onPress={() => router.push('./')}>
+      <TouchableOpacity style={styles.button} onPress={() => router.push('/home')}>
         <Text style={styles.title}>Voltar</Text>
       </TouchableOpacity>
 
@@ -80,17 +83,20 @@ const PC = () => {
       <Text style={styles.title}>Equipamentos cadastrados:</Text>
 
       <ScrollView showsVerticalScrollIndicator={true} style={styles.barra}>
-
         <FlatList
           data={equipamentos}
           keyExtractor={(item) => item.id}
           renderItem={({ item }) => (
-            <Text style={styles.input}>{item.name}</Text>
-          )}/>
-
+            <View style={styles.newView}>
+              <TouchableOpacity style={styles.button} onPress={() => router.push('/detalhes')}>{item.name}</TouchableOpacity> 
+              <TouchableOpacity onPress={() => handleDelete(item.id)} style={[styles.button, { backgroundColor: 'red', padding: 5 }]}>
+                <Text style={{ color: 'white' }}>Excluir</Text>
+              </TouchableOpacity>
+            </View>
+          )}
+        />
       </ScrollView>
     </View>
-    
   );
 };
 

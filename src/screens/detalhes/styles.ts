@@ -37,10 +37,20 @@ const styles  = StyleSheet.create ({
         color: 'black'
     },
     newView: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
+        flexDirection: 'column',
+        justifyContent: 'center',
         alignItems: 'center',
-        marginBottom: 10
+        marginBottom: 10,
+        flex: 1,
+        width: '100%',
+        height: '100%',
+        backgroundColor: 'white'
+    },
+    titleNew: {
+        fontSize: 16,
+        fontWeight: 'bold',
+        color: 'black',
+        margin: 10
     }
     
 })

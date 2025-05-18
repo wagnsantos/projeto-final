@@ -16,7 +16,8 @@ const styles  = StyleSheet.create ({
         width: 100,
         height: 100,
         borderRadius: 8,
-        marginTop: 10
+        marginTop: 10,
+        resizeMode: 'stretch'
     },
     button:{
             backgroundColor: '#243a69',

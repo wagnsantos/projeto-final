@@ -4,6 +4,7 @@ import { cadastrarEquipamento } from '@/src/service/CreateCustomerServices';
 import { listarEquipamentos } from '@/src/service/ListCustomerServices'; // Função para buscar equipamentos
 import { router } from 'expo-router';
 import styles from './styles';
+import { deletarEquipamento } from '@/src/service/DeleteCustomerService';
 
 const Servidores = () => {
   const [nome, setNome] = useState(''); // Nome do equipamento
@@ -31,6 +32,16 @@ const Servidores = () => {
       console.error('Erro ao buscar equipamentos:', error);
     }
   }
+  async function handleDelete(id: string) {
+        try {
+          await deletarEquipamento(id);
+          alert('Equipamento excluído!');
+          await buscarEquipamentos();
+        } catch (error) {
+          console.error('Erro ao excluir:', error);
+          alert('Erro ao excluir equipamento.');
+        }
+      }
   
   useEffect(() => {  
     buscarEquipamentos();
@@ -69,7 +80,7 @@ const Servidores = () => {
 
       <Button title="Cadastrar" onPress={handleCadastro} />
 
-      <TouchableOpacity style={styles.button} onPress={() => router.push('./')}>
+      <TouchableOpacity style={styles.button} onPress={() => router.push('/home')}>
         <Text style={styles.title}>Voltar</Text>
       </TouchableOpacity>
 
@@ -79,12 +90,18 @@ const Servidores = () => {
 
       <ScrollView showsVerticalScrollIndicator={true} style={styles.barra}>
 
-        <FlatList
+      <FlatList
           data={equipamentos}
           keyExtractor={(item) => item.id}
           renderItem={({ item }) => (
-            <Text style={styles.input}>{item.name}</Text>
-          )}/>
+            <View style={styles.newView}>
+              <Text style={styles.title}>{item.name}</Text> 
+              <TouchableOpacity onPress={() => handleDelete(item.id)} style={[styles.button, { backgroundColor: 'red', padding: 5 }]}>
+                <Text style={{ color: 'white' }}>Excluir</Text>
+              </TouchableOpacity>
+            </View>
+          )}
+        />
 
       </ScrollView>
     </View>

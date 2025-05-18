@@ -35,6 +35,12 @@ const styles  = StyleSheet.create ({
     barra:{
         padding: 5,
         color: 'black'
+    },
+    newView: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        marginBottom: 10
     }
     
 })

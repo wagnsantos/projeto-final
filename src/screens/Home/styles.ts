@@ -19,7 +19,7 @@ const styles = StyleSheet.create({
     image: {
         width: 100,
         height: 100,
-        borderRadius: 8
+        borderRadius: 8,
     },
     button: {
         backgroundColor: '#243a69',
@@ -29,6 +29,12 @@ const styles = StyleSheet.create({
     barra:{
         padding: 5,
         margin: 5
+    },
+    imageLogo: {
+        width: 100,
+        height: 100,
+        borderRadius: 8,
+        resizeMode: 'stretch'
     }
 })
 

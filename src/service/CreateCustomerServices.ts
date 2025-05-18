@@ -1,4 +1,4 @@
-import api from './api'; // Certifique-se de ter o api.ts com o baseURL certinho
+import { api } from "./api";
 
 type Customer = {
   name: string

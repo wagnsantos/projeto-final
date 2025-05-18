@@ -9,7 +9,7 @@ const Home = () => {
   return (
     <View style={styles.container}>
       
-      <Image style={styles.image} source={require('@/src/assets/logo1.png')} />
+      <Image style={styles.imageLogo} source={require('@/src/assets/monisystem_.png')} />
 
       <Text style={styles.title}>
         Sistema de Monitoramento de Equipamentos de TI

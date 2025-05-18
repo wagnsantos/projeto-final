@@ -8,7 +8,7 @@ import Servidores from "@/src/screens/Servidores/servidores"
 
 const App = () =>{
     
-    return <Home/>
+    return <Login/>
 }
 
 export default App

@@ -36,6 +36,8 @@ export default function RootLayout() {
         <Stack.Screen name="pc" options={{ headerShown: false }} />
         <Stack.Screen name="roteadores" options={{ headerShown: false }} />
         <Stack.Screen name="servidores" options={{ headerShown: false }} />
+        <Stack.Screen name="detalhes" options={{ headerShown: false }} />
+        <Stack.Screen name="home" options={{ headerShown: false }} />
       </Stack>
       <StatusBar style="auto" />
     </ThemeProvider>
