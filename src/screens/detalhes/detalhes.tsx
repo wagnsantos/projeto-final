@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { View, Button, Text, FlatList } from 'react-native';
+import { View, Button, Text, FlatList, ActivityIndicator, Image } from 'react-native';
+import { Video } from 'expo-av';
+
 
 import { listarDetalhes } from '@/src/service/ListCustomerDetails';
 
@@ -27,8 +29,10 @@ const Detalhes = () => {
 
 
     const [cpu, setCpu] = useState<CPU[]>([]);
+    const [loading, setLoading] = useState (true)
 
     async function buscarEquipamentos() {
+      setLoading
         console.log("CAIU AQ")
         try {
           const resposta = await listarDetalhes();
@@ -36,6 +40,8 @@ const Detalhes = () => {
           setCpu(resposta);
         } catch (error) {
           console.error('Erro ao buscar equipamentos:', error);
+        }finally{
+          setLoading(false)
         }
       }
 
@@ -48,21 +54,24 @@ const Detalhes = () => {
     
  return(
     <View style={styles.container}>
-        <Text style={styles.title}>Detalhes do PC</Text>      
+        <Text style={styles.title}>Detalhes do PC</Text>  
+        {loading ? (
+          <ActivityIndicator color={'black'} size={'large'}/>
+    ) : (
+      <FlatList
+        data={Array.isArray(cpu) ? cpu : [cpu]}
+        keyExtractor={(item) => item.hostname}
+        renderItem={({ item }) => (
+          <View style={styles.newView}>
+            <Text style={styles.titleNew}>Hostname: {item.hostname}</Text>
+            <Text style={styles.titleNew}>Processador: {item.manufacturer}</Text>
+            <Text style={styles.titleNew}>Especificação: {item.brand}</Text>
+            <Text style={styles.titleNew}>Velocidade: {item.speed}</Text>
+          </View>
+        )}
+      />
+    )}
 
-
-        <FlatList
-          data={Array.isArray(cpu) ? cpu : [cpu]}
-          keyExtractor={(item) => item.hostname}
-          renderItem={({ item }) => (
-            <View style={styles.newView}>
-                <Text style={styles.titleNew}>Hostname: {item.hostname}</Text>
-                <Text style={styles.titleNew}> Processador: {item.manufacturer}</Text>
-                <Text style={styles.titleNew}>Especificação: {item.brand}</Text>
-                <Text style={styles.titleNew}>Velocidade: {item.speed}</Text>
-            </View>
-          )}
-        />
 
         <Button title='Voltar' onPress={() => router.push('/pc')} color="#841584"/>
                 
